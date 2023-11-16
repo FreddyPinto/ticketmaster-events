@@ -2,7 +2,7 @@ import useEventsData from "../../hooks/useEventsData";
 import EventItem from "./components/EventItem";
 
 const Events = ({ searchTerm }) => {
-    const { events } = useEventsData();
+    const { events, loading, error } = useEventsData();
 
     const handleEventItemClick = (id) => {
         console.log('Evento clickeado: ',id);
@@ -28,6 +28,14 @@ const Events = ({ searchTerm }) => {
             );
         });
     };
+
+    if (error) {
+        return <div>Error</div>; 
+    }
+
+    if (loading) {
+        return <div>Cargando...</div>; 
+    }
 
     return (
         <div>
