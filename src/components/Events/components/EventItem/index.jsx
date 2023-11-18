@@ -1,6 +1,12 @@
 import styles from './EventItem.module.css';
 
 const EventItem = ({ info, id, name, image, onEventClick }) => {
+    
+    const handleSeeMoreClick = (evt) => {
+        evt.stopPropagation();
+        onEventClick(id);
+    };
+    
     return (
         <div onClick={() => onEventClick(id)} className={styles.eventItemContainer}>
             <div className={styles.imageContainer}>
@@ -9,7 +15,9 @@ const EventItem = ({ info, id, name, image, onEventClick }) => {
             <div className={styles.eventInfoContainer}>
                 <h4 className={styles.eventName}>{name}</h4>
                 <p className={styles.eventInfo}>{info}</p>
-                <button onClick={() => onEventClick} className={styles.seeMoreBtn}>Ver mas</button>
+                <button onClick={handleSeeMoreClick} className={styles.seeMoreBtn}>
+                    Ver mas
+                </button>
             </div>
         </div>
     );
