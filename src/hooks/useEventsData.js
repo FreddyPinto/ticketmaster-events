@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const useEventsData = () => {
     const [data, setData] = useState([]);
@@ -7,11 +7,14 @@ const useEventsData = () => {
 
     const fetchEvents = async (params) => {
         try {
-            const response = await fetch('https://app.ticketmaster.com/discovery/v2/?apikey=2N9nueA04IyQUWKKKrYBOtwWjmqEpTsp&countryCode=MX');
+            const response = await fetch(
+                `https://app.ticketmaster.com/discovery/v2/events.json?apikey=2N9nueA04IyQUWKKKrYBOtwWjmqEpTsp&countryCode=MX${params?.length ? params : ""
+                }`
+            );
             const data = await response.json();
 
             setData(data);
-            setIsLoading(false);
+            setLoading(false);
         } catch (error) {
             setError(error);
         }
@@ -21,6 +24,7 @@ const useEventsData = () => {
         events: data?._embedded?.events || [],
         loading,
         error,
+        fetchEvents,
     };
 };
 
